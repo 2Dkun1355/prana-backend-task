@@ -1,0 +1,14 @@
+# Core framework & ASGI
+fastapi==0.129.0
+uvicorn==0.41.0
+
+# Schema validation & settings
+pydantic[email]==2.12.5
+pydantic-settings==2.13.0
+python-dotenv==1.2.1
+
+# Authentication & security
+python-jose[cryptography]==3.5.0
+
+# Document generation
+reportlab==4.4.10

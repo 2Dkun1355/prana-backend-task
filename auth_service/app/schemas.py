@@ -6,6 +6,11 @@ class UserBase(BaseModel):
     """
     Base schema for User data, enabling ORM mode for SQLAlchemy compatibility.
     """
+    first_name: str = Field(..., title="First name")
+    last_name: str = Field(..., title="Last name")
+    email: EmailStr = Field(..., title="Email")
+    date_of_birth: date = Field(..., title="Date of birth")
+
     model_config = {
         "from_attributes": True
     }
@@ -16,13 +21,8 @@ class UserResponse(UserBase):
     Schema for user profile data returned in API responses.
     """
     id: int = Field(..., title="User ID")
-    first_name: str = Field(..., title="First name")
-    last_name: str = Field(..., title="Last name")
-    email: EmailStr = Field(..., title="Email")
-    date_of_birth: date = Field(..., title="Date of birth")
 
-
-class UserCreate(UserResponse):
+class UserCreate(UserBase):
     """
     Schema for user registration, including password.
     Note: 'id' is excluded during actual creation in the service layer.

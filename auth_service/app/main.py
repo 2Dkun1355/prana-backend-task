@@ -1,5 +1,6 @@
 from fastapi import FastAPI
 from app.router import auth_router
+from starlette.middleware.cors import CORSMiddleware
 
 app = FastAPI(
     title="Auth Service",
