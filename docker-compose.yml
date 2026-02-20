@@ -1,0 +1,51 @@
+services:
+  auth_service:
+    build:
+      context: auth_service
+      dockerfile: Dockerfile
+    container_name: auth_service
+    ports:
+      - "8001:8001"
+    env_file:
+      - .env
+    volumes:
+      - ./auth_service:/app
+    depends_on:
+      - database
+    networks:
+      - backend-network
+
+  pdf_service:
+    build:
+      context: pdf_service
+      dockerfile: Dockerfile
+    container_name: pdf_service
+    ports:
+      - "8002:8002"
+    env_file:
+      - .env
+    volumes:
+      - ./pdf_service:/app
+    networks:
+      - backend-network
+
+  database:
+    image: postgres:16
+    container_name: database
+    restart: always
+    environment:
+      POSTGRES_USER: ${POSTGRES_USER}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
+      POSTGRES_DB: ${POSTGRES_DB}
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    networks:
+      - backend-network
+
+volumes:
+  postgres_data:
+
+networks:
+  backend-network:

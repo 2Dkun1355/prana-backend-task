@@ -1,0 +1,17 @@
+# Core framework & ASGI
+fastapi==0.129.0
+uvicorn==0.41.0
+
+# Database
+sqlalchemy==2.0.46
+asyncpg==0.31.0
+alembic==1.18.4
+
+# Schema validation & settings
+pydantic[email]==2.12.5
+pydantic-settings==2.13.0
+python-dotenv==1.2.1
+
+# Authentication & security
+python-jose[cryptography]==3.5.0
+passlib[argon2]==1.7.4
