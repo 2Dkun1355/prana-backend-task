@@ -98,7 +98,7 @@ The system is split into two independent services:
 |----------|--------|------------------------|---------------------------------|---------------|
 | **Auth** | POST   | `api/auth/signup`      | Register a new user             | No            |
 | **Auth** | POST   | `api/auth/login`       | Get JWT access token            | No            |
-| **PDF**  | GET    | `api/pdf/generate`     | Generate profile PDF            | **Yes (JWT)** |
+| **PDF**  | GET    | `api/pdf/download`     | Generate profile PDF            | **Yes (JWT)** |
 | **PDF**  | POST   | `api/pdf/upload-to-s3` | Triggers background generation. | **Yes (JWT)** |
 
 ---
