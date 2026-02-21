@@ -1,7 +1,5 @@
 from fastapi import FastAPI
-from starlette.middleware.cors import CORSMiddleware
-
-from app.router import pdf_router
+from .router import pdf_router
 
 app = FastAPI(
     title="PDF Generation Service",

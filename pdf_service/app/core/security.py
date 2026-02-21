@@ -1,7 +1,7 @@
 from fastapi import HTTPException, status
 from jose import jwt
 from jose.exceptions import JWTClaimsError, ExpiredSignatureError, JWTError
-from app.core.config import settings
+from .config import settings
 
 
 class JWTManager:

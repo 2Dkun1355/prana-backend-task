@@ -1,6 +1,6 @@
 from fastapi import APIRouter, HTTPException, status
-from app.schemas import UserCreate, UserResponse, UserAuth, TokenResponse
-from app.dependencies import AuthServiceDepends
+from .schemas import UserCreate, UserResponse, UserAuth, TokenResponse
+from .dependencies import AuthServiceDepends
 
 auth_router = APIRouter(prefix="/api/auth", tags=["auth"])
 
@@ -21,7 +21,12 @@ async def signup(
     except ValueError as e:
         raise HTTPException(
             status_code=status.HTTP_400_BAD_REQUEST,
-            detail=str(e)
+            detail={"error": "Registration Error", "message": str(e)}
+        )
+    except Exception as e:
+        raise HTTPException(
+            status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
+            detail={"error": "Server Error", "message": "An unexpected error occurred"}
         )
 
 @auth_router.post(
@@ -42,5 +47,10 @@ async def login(
     except ValueError as e:
         raise HTTPException(
             status_code=status.HTTP_401_UNAUTHORIZED,
-            detail=str(e)
+            detail={"error": "Auth Error", "message": str(e)}
+        )
+    except Exception as e:
+        raise HTTPException(
+            status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
+            detail={"error": "Server Error", "message": "Internal server error"}
         )

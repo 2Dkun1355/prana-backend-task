@@ -9,19 +9,43 @@ class Settings(BaseSettings):
     """
 
     # --- PostgreSQL Database Settings ---
-    POSTGRES_USER: str = Field("POSTGRES_USER", description="Username for PostgreSQL")
-    POSTGRES_PASSWORD: str = Field("POSTGRES_PASSWORD", description="Password for PostgreSQL")
-    POSTGRES_DB: str = Field("POSTGRES_DB", description="Database name")
-    POSTGRES_HOST: str = Field("POSTGRES_HOST", description="Database host (e.g., 'localhost' or service name in Docker)")
-    POSTGRES_PORT: int = Field(5432, description="Database port")
+    POSTGRES_USER: str = Field(
+        default="POSTGRES_USER",
+        description="Username for PostgreSQL"
+    )
+    POSTGRES_PASSWORD: str = Field(
+        default="POSTGRES_PASSWORD",
+        description="Password for PostgreSQL"
+    )
+    POSTGRES_DB: str = Field(
+        default="POSTGRES_DB",
+        description="Database name"
+    )
+    POSTGRES_HOST: str = Field(
+        default="POSTGRES_HOST",
+        description="Database host (e.g., 'localhost' or service name in Docker)"
+    )
+    POSTGRES_PORT: int = Field(
+        default=5432,
+        description="Database port"
+    )
 
     # --- JWT Authentication Settings ---
-    SECRET_KEY: str = Field("SECRET_KEY", description="Secret key used for signing JWT tokens")
-    ALGORITHM: str = Field("HS256", description="Algorithm used for JWT encryption")
-    ACCESS_TOKEN_EXPIRE_MINUTES: int = Field(30, description="Token lifetime in minutes")
+    SECRET_KEY: str = Field(
+        default="SECRET_KEY",
+        description="Secret key used for signing JWT tokens")
+
+    ALGORITHM: str = Field(
+        default="HS256",
+        description="Algorithm used for JWT encryption"
+    )
+    ACCESS_TOKEN_EXPIRE_MINUTES: int = Field(
+        default=30,
+        description="Token lifetime in minutes"
+    )
 
     @property
-    def async_database_url(self) -> str:
+    def get_database_url(self) -> str:
         """
         Constructs the asynchronous SQLAlchemy database URL.
         Required for asyncpg driver as per project specifications.

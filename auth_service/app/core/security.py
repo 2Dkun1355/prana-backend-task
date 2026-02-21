@@ -4,7 +4,7 @@ from typing import Dict, Any
 from jose import jwt, JWTError
 from passlib.context import CryptContext
 
-from app.core.config import settings
+from .config import settings
 
 class PasswordManager:
     """

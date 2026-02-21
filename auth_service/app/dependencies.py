@@ -3,10 +3,10 @@ from typing import Annotated
 from fastapi import Depends
 from sqlalchemy.ext.asyncio import AsyncSession
 
-from app.database import get_session
-from app.core.security import PasswordManager, JWTManager
-from app.repository import UserRepository
-from app.services import AuthService
+from .database import get_session
+from .core.security import PasswordManager, JWTManager
+from .repository import UserRepository
+from .services import AuthService
 
 SessionDepends = Annotated[AsyncSession, Depends(get_session)]
 

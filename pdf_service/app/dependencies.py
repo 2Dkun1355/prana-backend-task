@@ -1,9 +1,11 @@
 from typing import Annotated
+
+import aioboto3
 from fastapi import Depends, Request, HTTPException, status
 
-from app.core.security import JWTManager
-from app.schemas import UserFromToken
-from app.services import PDFService
+from .core.security import JWTManager
+from .schemas import UserFromToken
+from .services import PDFService, QueueService
 
 
 def get_jwt_manager() -> JWTManager:
@@ -42,3 +44,12 @@ def get_current_user(request: Request, jwt_manager: JWTManagerDepends) -> UserFr
 
 
 CurrentUserDepends = Annotated[UserFromToken, Depends(get_current_user)]
+
+
+def get_queue_service() -> QueueService:
+    return QueueService(
+        session=aioboto3.Session()
+    )
+
+
+QueueServiceDepends = Annotated[QueueService, Depends(get_queue_service)]

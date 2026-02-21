@@ -1,3 +1,4 @@
+import uuid
 from pydantic import BaseModel, EmailStr, Field
 from datetime import date
 
@@ -6,8 +7,8 @@ class UserBase(BaseModel):
     """
     Base schema for User data, enabling ORM mode for SQLAlchemy compatibility.
     """
-    first_name: str = Field(..., title="First name")
-    last_name: str = Field(..., title="Last name")
+    name: str = Field(..., title="Name")
+    surname: str = Field(..., title="Surname")
     email: EmailStr = Field(..., title="Email")
     date_of_birth: date = Field(..., title="Date of birth")
 
@@ -20,7 +21,7 @@ class UserResponse(UserBase):
     """
     Schema for user profile data returned in API responses.
     """
-    id: int = Field(..., title="User ID")
+    id: uuid.UUID = Field(..., title="User ID")
 
 class UserCreate(UserBase):
     """

@@ -29,6 +29,34 @@ services:
     networks:
       - backend-network
 
+  pdf_worker:
+    build:
+      context: pdf_service
+      dockerfile: Dockerfile
+    container_name: pdf_worker
+    command: python -m app.worker
+    env_file:
+      - .env
+    volumes:
+      - ./pdf_service:/app
+    depends_on:
+      - localstack
+    networks:
+      - backend-network
+
+  localstack:
+    image: localstack/localstack
+    container_name: localstack
+    ports:
+      - "4566:4566"
+    environment:
+      - SERVICES=s3,sqs
+      - LS_LOG=error
+    volumes:
+      - "./init-aws.sh:/etc/localstack/init/ready.d/init-aws.sh"
+    networks:
+      - backend-network
+
   database:
     image: postgres:16
     container_name: database
