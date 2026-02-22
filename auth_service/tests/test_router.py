@@ -34,7 +34,13 @@ async def test_login_invalid_credentials():
             })
 
             assert response.status_code == 401
-            assert response.json()["detail"] == "Incorrect email or password"
+            assert response.json() == {
+                "detail":
+                    {
+                        "error": "Auth Error",
+                        "message": "Incorrect email or password"
+                    }
+            }
 
 
 @pytest.mark.asyncio
@@ -106,7 +112,13 @@ async def test_signup_email_already_exists():
             })
 
             assert response.status_code == 400
-            assert response.json()["detail"] == "Email must be unique"
+            assert response.json() == {
+                'detail':
+                    {
+                        'error': 'Registration Error',
+                        'message': 'Email must be unique'
+                    }
+            }
 
 
 @pytest.mark.asyncio
